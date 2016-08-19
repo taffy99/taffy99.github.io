@@ -1,0 +1,464 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>JS实现轮播图思路整理 | Sunf&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Taffy Tian">
+    
+    <meta name="description" content="JS实现轮播图思路整理
+
+html结构层
+
+12345678910111213141516&amp;lt;div class=&quot;index-banner&quot; id=&quot;banner&quot;&amp;gt;		&amp;lt;div class=&quot;banner-list&quot; id=&quot;banner_list&quot; style=&quot;left:-1">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Sunf&#39;s Blog" title="Sunf&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Sunf&#39;s Blog">Sunf&#39;s Blog</a></h1>
+				<h2 class="blog-motto">Walk steps step by step</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">存档</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/18/JS实现轮播图思路整理/" title="JS实现轮播图思路整理" itemprop="url">JS实现轮播图思路整理</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://yoursite.com" title="Taffy Tian">Taffy Tian</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-08-18T10:07:32.000Z" itemprop="datePublished">2016-08-18</time>
+    更新日期:<time datetime="2016-08-18T10:28:31.391Z" itemprop="dateModified">2016-08-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+		</div>
+		
+		<p><strong>JS实现轮播图思路整理</strong></p>
+<blockquote>
+<p>html结构层</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"index-banner"</span> <span class="attr">id</span>=<span class="string">"banner"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"banner-list"</span> <span class="attr">id</span>=<span class="string">"banner_list"</span> <span class="attr">style</span>=<span class="string">"left:-1610px;"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.icourse163.org/"</span> <span class="attr">class</span>=<span class="string">"banner3"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://open.163.com/"</span> <span class="attr">class</span>=<span class="string">"banner1"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://study.163.com/"</span> <span class="attr">class</span>=<span class="string">"banner2"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> &gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.icourse163.org/"</span> <span class="attr">class</span>=<span class="string">"banner3"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://open.163.com/"</span> <span class="attr">class</span>=<span class="string">"banner1"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"slide"</span> <span class="attr">id</span>=<span class="string">"slideBtn"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">index</span>=<span class="string">"1"</span> <span class="attr">class</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">index</span>=<span class="string">"2"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">index</span>=<span class="string">"3"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span> </div><div class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:;"</span> <span class="attr">id</span>=<span class="string">"prev"</span> <span class="attr">class</span>=<span class="string">"arrow"</span>&gt;</span>&amp;lt;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:;"</span> <span class="attr">id</span>=<span class="string">"next"</span> <span class="attr">class</span>=<span class="string">"arrow"</span>&gt;</span>&amp;gt;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p> css表现层</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.index-banner</span>  &#123;</div><div class="line">	<span class="attribute">position</span>: relative; </div><div class="line">	<span class="attribute">width</span>:<span class="number">1610px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">461px</span>;</div><div class="line">	<span class="attribute">margin</span>:<span class="number">0</span> auto; </div><div class="line">	<span class="attribute">overflow</span>: hidden; </div><div class="line">&#125;</div><div class="line"><span class="selector-class">.index-banner</span> <span class="selector-class">.banner-list</span>&#123;</div><div class="line">	<span class="attribute">position</span>: absolute;</div><div class="line">	<span class="attribute">width</span>:<span class="number">8050px</span>; </div><div class="line">	<span class="attribute">height</span>: <span class="number">461px</span>;</div><div class="line">	<span class="attribute">z-index</span>: <span class="number">1</span>;  </div><div class="line">&#125;</div><div class="line"><span class="selector-class">.index-banner</span> <span class="selector-class">.banner-list</span> <span class="selector-tag">a</span>&#123; </div><div class="line">	<span class="attribute">display</span>: block; </div><div class="line">	<span class="attribute">float</span>: left;</div><div class="line">	<span class="attribute">width</span>:<span class="number">1610px</span>;</div><div class="line">	<span class="attribute">height</span>:<span class="number">461px</span>; </div><div class="line">&#125;</div><div class="line"><span class="selector-class">.banner1</span>&#123;  </div><div class="line">	<span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">"../images/banner1.jpg"</span>) no-repeat; </div><div class="line">&#125; </div><div class="line"><span class="selector-class">.banner2</span>&#123;  </div><div class="line">	<span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">"../images/banner2.jpg"</span>) no-repeat; </div><div class="line">&#125; </div><div class="line"><span class="selector-class">.banner3</span>&#123;  </div><div class="line">	<span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">"../images/banner3.jpg"</span>) no-repeat; </div><div class="line">&#125;</div><div class="line"><span class="selector-class">.index-banner</span> <span class="selector-class">.slide</span>&#123;</div><div class="line">	<span class="attribute">position</span>: absolute;</div><div class="line">	<span class="attribute">z-index</span>: <span class="number">2</span>; </div><div class="line">	<span class="attribute">left</span>:<span class="number">50%</span>;</div><div class="line">	<span class="attribute">margin-left</span>:-<span class="number">5px</span>;</div><div class="line">	<span class="attribute">bottom</span>: <span class="number">20px</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.index-banner</span> <span class="selector-class">.slide</span> <span class="selector-tag">span</span>&#123;</div><div class="line">	<span class="attribute">display</span>: inline-block;</div><div class="line">	<span class="attribute">cursor</span>: pointer;</div><div class="line">	<span class="attribute">margin-right</span>: <span class="number">10px</span>; </div><div class="line">	<span class="attribute">width</span>: <span class="number">10px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">10px</span>;</div><div class="line">	<span class="attribute">border-radius</span>: <span class="number">50%</span>;</div><div class="line">	<span class="attribute">background-color</span>: <span class="number">#fff</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.index-banner</span> <span class="selector-class">.slide</span> <span class="selector-class">.active</span>&#123;</div><div class="line">	<span class="attribute">background-color</span>: <span class="number">#000</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.arrow</span> &#123; </div><div class="line">	<span class="attribute">cursor</span>: pointer; </div><div class="line">	<span class="attribute">position</span>: absolute;</div><div class="line">	<span class="attribute">z-index</span>: <span class="number">2</span>; </div><div class="line">	<span class="attribute">top</span>: <span class="number">180px</span>; </div><div class="line">	<span class="attribute">display</span>: none; </div><div class="line">	<span class="attribute">line-height</span>: <span class="number">70px</span>; </div><div class="line">	<span class="attribute">text-align</span>: center; </div><div class="line">	<span class="attribute">vertical-align</span>: middle;</div><div class="line">	<span class="attribute">font-size</span>: <span class="number">35px</span>; </div><div class="line">	<span class="attribute">font-weight</span>: bold; </div><div class="line">	<span class="attribute">width</span>: <span class="number">50px</span>; </div><div class="line">	<span class="attribute">height</span>: <span class="number">70px</span>;  </div><div class="line">	<span class="attribute">background-color</span>: <span class="built_in">RGBA</span>(0,0,0,.3); </div><div class="line">	<span class="attribute">color</span>: <span class="number">#fff</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.arrow</span><span class="selector-pseudo">:hover</span> &#123; <span class="attribute">background-color</span>: <span class="built_in">RGBA</span>(0,0,0,.7);&#125;</div><div class="line"><span class="selector-class">.index-banner</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.arrow</span> &#123; <span class="attribute">display</span>: block;&#125;</div><div class="line"> <span class="selector-id">#prev</span> &#123; <span class="attribute">left</span>: <span class="number">20px</span>;&#125;</div><div class="line"> <span class="selector-id">#next</span> &#123; <span class="attribute">right</span>: <span class="number">20px</span>;&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>JS实现原理：通过改变图片的偏移量来实现图片的切换<br>实现步骤：1、通过documnet.getElementById()获取页面需要操作的元素</p>
+</blockquote>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line"><span class="built_in">var</span> banner=<span class="built_in">document</span>.getElementById(<span class="string">"banner"</span>);<span class="comment">//获取轮播图父容器；</span></div><div class="line"><span class="built_in">var</span> <span class="built_in">list</span>=<span class="built_in">document</span>.getElementById(<span class="string">"banner_list"</span>);<span class="comment">//获取图片列表；</span></div><div class="line"><span class="built_in">var</span> buttons=<span class="built_in">document</span>.getElementById(<span class="string">"slideBtn"</span>).getElementsByTagName(<span class="string">"span"</span>);<span class="comment">//获取图片切换圆点按钮；</span></div><div class="line"><span class="built_in">var</span> pre=<span class="built_in">document</span>.getElementById(<span class="string">"prev"</span>);<span class="comment">//获取向左切换箭头</span></div><div class="line"><span class="built_in">var</span> next=<span class="built_in">document</span>.getElementById(<span class="string">"next"</span>);<span class="comment">//获取向右切换箭头；</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>2、实现左右箭头的切换：给左右箭头绑定点击事件；<br>问题：在左右切换过程中会在图片切换完会显示空白？<br>解决方法：使用无限滚动的技巧，即实现循环无缝切换：<br>1)在页面图片列表的开始加上最后一张图片的附属图，在最后加上第一张图片的附属图<br>2)每次切换时判断切换后的位置是否大于-1610px或是小于-4830px（即是否切换到附属图的位置）：<br>如果大于-1610px,就把图片重新定位到真正的最后一张图的位置：-4830px;<br>如果小于-4830px,就把图片重新定位到真正的第一张图的位置：-1610px;</p>
+</blockquote>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">  <span class="built_in">var</span> index=<span class="number">1</span>;<span class="comment">//用于存放当前要显示的图片，初始值为第一张图片</span></div><div class="line">  <span class="built_in">var</span> animated=<span class="literal">false</span>;<span class="comment">//优化动画执行效果，只有当前切换动画未执行时，才能被执行。解决当前动画执行未完成时，多次点击切换按钮导致的页面卡图现象，初始值为false</span></div><div class="line">   </div><div class="line">   pre.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   		<span class="comment">//切换到当前图片左边的图片，如果当前是第一张，会切换到最后一张</span></div><div class="line">   		<span class="keyword">if</span>(index==<span class="number">1</span>)&#123;</div><div class="line">   			index=<span class="number">3</span>;</div><div class="line">   		&#125;</div><div class="line">   		<span class="comment">//否则会切换到前一张，即index-1</span></div><div class="line">   		<span class="title">else</span>&#123;</div><div class="line">   			index-=<span class="number">1</span>;	</div><div class="line">   		&#125;</div><div class="line">   		<span class="comment">//每次点击时，判断animated为false时执行切换</span></div><div class="line">   		<span class="keyword">if</span>(!animated)&#123;</div><div class="line">   			animate(<span class="number">1610</span>);	</div><div class="line">   		&#125;</div><div class="line">   		</div><div class="line">   		<span class="comment">//设置当前圆点按钮样式切换到选中状态，其他圆点为未选中状态</span></div><div class="line">   		showBtn();</div><div class="line">   	&#125;</div><div class="line">   next.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   		<span class="comment">//切换到当前图片右边的图片，如果当前是最后一张，会切换到第一张</span></div><div class="line">   		<span class="keyword">if</span>(index==<span class="number">3</span>)&#123;</div><div class="line">   			index=<span class="number">1</span>;</div><div class="line">   		&#125;</div><div class="line">   		<span class="comment">//否则会切换到下一张，即index+1</span></div><div class="line">   		<span class="title">else</span>&#123;</div><div class="line">   			index+=<span class="number">1</span>;	</div><div class="line">   		&#125;</div><div class="line">   		<span class="comment">//每次点击时，判断animated为false时执行动画</span></div><div class="line">   		<span class="keyword">if</span>(!animated)&#123;</div><div class="line">   			animate(<span class="number">-1610</span>);	</div><div class="line">   		&#125;</div><div class="line">   		<span class="comment">//设置当前圆点按钮样式切换到选中状态，其他圆点为未选中状态</span></div><div class="line">   		showBtn();</div><div class="line">   	&#125;</div><div class="line">   	</div><div class="line">   	</div><div class="line">   <span class="comment">//将偏移的动作封装到函数animate()中</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">animate</span>(<span class="params">offset</span>)</span>&#123; </div><div class="line">	animated=<span class="literal">true</span>;<span class="comment">//调用animate()切换时设置为true;</span></div><div class="line">	<span class="built_in">var</span> newleft=<span class="built_in">parseInt</span>(<span class="built_in">list</span>.style.left)+offset;<span class="comment">//偏移之后的位置</span></div><div class="line">	<span class="built_in">var</span> time=<span class="number">500</span>;<span class="comment">//位移总时间</span></div><div class="line">	<span class="built_in">var</span> interval=<span class="number">10</span>;<span class="comment">//位移间隔时间</span></div><div class="line">	<span class="built_in">var</span> speed=offset/(time/interval);<span class="comment">//每次位移量 =总偏移量/次数</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">go</span>(<span class="params"></span>)</span>&#123;<span class="comment">//递归，在函数内部调用自身实现入场图片500ms淡入的效果			</span></div><div class="line">      <span class="comment">//判断偏移量是否达到了目标值，如果没有，在原来的基础上继续移动</span></div><div class="line">		<span class="keyword">if</span>((speed&lt;<span class="number">0</span> &amp;&amp; <span class="built_in">parseInt</span>(<span class="built_in">list</span>.style.left)&gt;newleft)||(speed&gt;<span class="number">0</span> &amp;&amp; <span class="built_in">parseInt</span>(<span class="built_in">list</span>.style.left)&lt;newleft))&#123;</div><div class="line">			<span class="built_in">list</span>.style.left=<span class="built_in">parseInt</span>(<span class="built_in">list</span>.style.left) + speed +<span class="string">'px'</span>;</div><div class="line">			<span class="comment">//设置定时器，每隔interval的时间调用一下go()函数</span></div><div class="line">			<span class="comment">//setTimeout()函数只会被执行一次</span></div><div class="line">			setTimeout(go,interval);</div><div class="line">		&#125;</div><div class="line">		<span class="comment">//如果达到了目标值，就将newleft值设置为目标值，</span></div><div class="line">		<span class="title">else</span>&#123;</div><div class="line">			animated=<span class="literal">false</span>;<span class="comment">//切换结束，设置为false;</span></div><div class="line"></div><div class="line">			<span class="comment">//获取当前图片的left值：用list.style.left获取left的字符串，需要parseInt()函数将字符串转换为数值</span></div><div class="line">			<span class="built_in">list</span>.style.left = newleft+<span class="string">'px'</span>;</div><div class="line">			</div><div class="line">              <span class="comment">//设置无缝切换</span></div><div class="line">   			<span class="keyword">if</span>( newleft &gt; <span class="number">-1610</span> )&#123;</div><div class="line">				<span class="built_in">list</span>.style.left=<span class="string">'-4830px'</span>;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">if</span>( newleft &lt; <span class="number">-4830</span>)&#123;</div><div class="line">				<span class="built_in">list</span>.style.left=<span class="string">'-1610px'</span>;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125; </div><div class="line">	go();<span class="comment">//调用animate()时执行go()函数 </span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">   <span class="comment">//将圆点按钮样式切换封装到showBtn()函数中</span></div><div class="line">   	<span class="function"><span class="keyword">function</span> <span class="title">showBtn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   		<span class="comment">//遍历圆点按钮数组</span></div><div class="line">   		<span class="keyword">for</span>(<span class="built_in">var</span> i=<span class="number">0</span>;i&lt;buttons.length;i++)&#123;</div><div class="line">   			<span class="built_in">var</span> button=buttons[i];</div><div class="line">               <span class="comment">//取消之前按钮设置的active状态</span></div><div class="line">   			<span class="keyword">if</span>(button.className == <span class="string">'active'</span>)&#123;</div><div class="line">   				button.className=<span class="string">''</span>;</div><div class="line">   				<span class="keyword">break</span>;</div><div class="line">   			&#125;</div><div class="line">   		&#125;</div><div class="line">   		<span class="comment">//设置当前图片对应的圆点按钮状态为active</span></div><div class="line">   		buttons[index<span class="number">-1</span>].className=<span class="string">'active'</span>;</div><div class="line">   	&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>3、实现圆点按钮点击切换：遍历底部圆点按钮数组，为每个按钮添加点击事件</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;buttons.length;i++)&#123;</div><div class="line">   		<span class="keyword">var</span> button=buttons[i];</div><div class="line">   		button.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   			<span class="comment">//程序优化：如果点击当前处于active状态的按钮，则不执行任何操作</span></div><div class="line">   			<span class="keyword">if</span>(<span class="keyword">this</span>.className==<span class="string">'active'</span>)&#123;</div><div class="line">   				<span class="keyword">return</span>;<span class="comment">//当程序执行到这里时会退出当前函数，不会再执行后面的语句</span></div><div class="line">   			&#125;</div><div class="line">   			<span class="comment">//问题：如何在点击圆点按钮时，定位切换到对应的图片上？</span></div><div class="line">   			<span class="comment">//解决方法：获取html页面按钮上自定义的index属性值，通过该index值可以算出每次点击的按钮距之前按钮的偏移量，</span></div><div class="line">   			<span class="keyword">var</span> myIndex=<span class="built_in">parseInt</span>(<span class="keyword">this</span>.getAttribute(<span class="string">'index'</span>));<span class="comment">//获取自定义的属性的值并转换为数字</span></div><div class="line">               <span class="keyword">var</span> offset=<span class="number">-1610</span> * (myIndex-index);<span class="comment">//算出偏移量</span></div><div class="line">               <span class="keyword">if</span>(!animated)&#123;</div><div class="line">               	animate(offset);<span class="comment">//调用animate实现切换</span></div><div class="line">               &#125; </div><div class="line">               index=myIndex;<span class="comment">//更新当前的index值</span></div><div class="line">               showBtn();<span class="comment">//调用showBtn实现按钮的样式切换 </span></div><div class="line">   		&#125;</div><div class="line">   	&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>4、实现图片自动切换：实现每5s切换图片，图片循环播放；</p>
+</blockquote>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> timer;<span class="comment">//设置自动播放的定时器</span></div><div class="line">   <span class="function"><span class="keyword">function</span> <span class="title">play</span><span class="params">()</span></span>&#123;</div><div class="line">   		<span class="comment">//设置定时器，每隔5s点击右键头切换按钮</span></div><div class="line">   		timer=setInterval(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123; </div><div class="line">   			next.onclick(); </div><div class="line">   		&#125;,<span class="number">5000</span>);</div><div class="line">   	&#125;</div><div class="line">   	<span class="function"><span class="keyword">function</span> <span class="title">stop</span><span class="params">()</span></span>&#123;</div><div class="line">   		<span class="comment">//暂停自动播放</span></div><div class="line">   		clearInterval(timer);</div><div class="line">   	&#125;</div><div class="line">   </div><div class="line">   	banner.onmouseover=stop;<span class="comment">//鼠标悬停某张图片，则暂停切换；</span></div><div class="line">   	banner.onmouseout=play;<span class="comment">//鼠标移除时，继续自动切换；</span></div><div class="line">   </div><div class="line">   	play();<span class="comment">//初始化时执行自动播放</span></div><div class="line">   	</div><div class="line">   &#125;<span class="comment">//window.onload加载完成</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p> 使用jquery实现如下，思路不变：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">$(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">           <span class="keyword">var</span> banner= $(<span class="string">'#banner'</span>);</div><div class="line">           <span class="keyword">var</span> list = $(<span class="string">'#banner_list'</span>);</div><div class="line">           <span class="keyword">var</span> buttons = $(<span class="string">'#slideBtn span'</span>);</div><div class="line">           <span class="keyword">var</span> prev = $(<span class="string">'#prev'</span>);</div><div class="line">           <span class="keyword">var</span> next = $(<span class="string">'#next'</span>);</div><div class="line">           <span class="keyword">var</span> index = <span class="number">1</span>; </div><div class="line">           <span class="keyword">var</span> interval = <span class="number">5000</span>;</div><div class="line">           <span class="keyword">var</span> timer; </div><div class="line">           <span class="function"><span class="keyword">function</span> <span class="title">animate</span> (<span class="params">offset</span>) </span>&#123;</div><div class="line">               <span class="keyword">var</span> left = <span class="built_in">parseInt</span>(list.css(<span class="string">'left'</span>)) + offset;</div><div class="line">               <span class="keyword">if</span> (offset&gt;<span class="number">0</span>) &#123;</div><div class="line">                   offset = <span class="string">'+='</span> + offset;</div><div class="line">               &#125;</div><div class="line">               <span class="keyword">else</span> &#123;</div><div class="line">                   offset = <span class="string">'-='</span> + <span class="built_in">Math</span>.abs(offset);</div><div class="line">               &#125;</div><div class="line">               list.animate(&#123;<span class="string">'left'</span>: offset&#125;, <span class="number">500</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                   <span class="keyword">if</span>(left &gt; <span class="number">-1610</span>)&#123;</div><div class="line">                       list.css(<span class="string">'left'</span>,<span class="number">-4830</span>);</div><div class="line">                   &#125;</div><div class="line">                   <span class="keyword">if</span>(left &lt; <span class="number">4830</span>) &#123;</div><div class="line">                       list.css(<span class="string">'left'</span>,<span class="number">-1610</span>);</div><div class="line">                   &#125;</div><div class="line">               &#125;);</div><div class="line">           &#125;</div><div class="line">           </div><div class="line">     <span class="function"><span class="keyword">function</span> <span class="title">showButton</span>(<span class="params"></span>) </span>&#123;</div><div class="line">             buttons.eq(index<span class="number">-1</span>).addClass(<span class="string">'active'</span>).siblings().removeClass(<span class="string">'active'</span>);</div><div class="line">           &#125;</div><div class="line"></div><div class="line">      <span class="function"><span class="keyword">function</span> <span class="title">play</span>(<span class="params"></span>) </span>&#123;</div><div class="line">               timer = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                   next.trigger(<span class="string">'click'</span>);</div><div class="line">                   play();</div><div class="line">               &#125;, interval);</div><div class="line">           &#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">stop</span>(<span class="params"></span>) </span>&#123;</div><div class="line">               clearTimeout(timer);</div><div class="line">           &#125;</div><div class="line"></div><div class="line">           next.bind(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">               <span class="keyword">if</span> (list.is(<span class="string">':animated'</span>)) &#123;</div><div class="line">                   <span class="keyword">return</span>;</div><div class="line">               &#125;</div><div class="line">               <span class="keyword">if</span> (index == <span class="number">3</span>) &#123;</div><div class="line">                   index = <span class="number">1</span>;</div><div class="line">               &#125;</div><div class="line">               <span class="keyword">else</span> &#123;</div><div class="line">                   index += <span class="number">1</span>;</div><div class="line">               &#125;</div><div class="line">               animate(<span class="number">-1610</span>);</div><div class="line">               showButton();</div><div class="line">           &#125;);</div><div class="line"></div><div class="line">       prev.bind(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">               <span class="keyword">if</span> (list.is(<span class="string">':animated'</span>)) &#123;</div><div class="line">                   <span class="keyword">return</span>;</div><div class="line">               &#125;</div><div class="line">               <span class="keyword">if</span> (index == <span class="number">1</span>) &#123;</div><div class="line">                   index = <span class="number">3</span>;</div><div class="line">               &#125;</div><div class="line">               <span class="keyword">else</span> &#123;</div><div class="line">                   index -= <span class="number">1</span>;</div><div class="line">               &#125;</div><div class="line">               animate(<span class="number">1610</span>);</div><div class="line">               showButton();</div><div class="line">           &#125;);</div><div class="line"></div><div class="line">           buttons.each(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                $(<span class="keyword">this</span>).bind(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                    <span class="keyword">if</span> (list.is(<span class="string">':animated'</span>) || $(<span class="keyword">this</span>).attr(<span class="string">'class'</span>)==<span class="string">'active'</span>) &#123;</div><div class="line">                        <span class="keyword">return</span>;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">var</span> myIndex = <span class="built_in">parseInt</span>($(<span class="keyword">this</span>).attr(<span class="string">'index'</span>));</div><div class="line">                    <span class="keyword">var</span> offset = <span class="number">-1610</span> * (myIndex - index);</div><div class="line"></div><div class="line">                    animate(offset);</div><div class="line">                    index = myIndex;</div><div class="line">                    showButton();</div><div class="line">                &#125;)</div><div class="line">           &#125;);</div><div class="line"></div><div class="line">           banner.hover(stop, play);</div><div class="line"></div><div class="line">           play();</div><div class="line"></div><div class="line">       &#125;);</div></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/技术/">技术</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/技术/">技术</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2016/08/18/JS实现轮播图思路整理/" data-title="JS实现轮播图思路整理 | Sunf&#39;s Blog" data-tsina="1463824200" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/08/13/开篇/"  title="开篇">
+ <strong>NEXT:</strong><br/> 
+ <span>开篇
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/技术/" title="技术">技术<sup>1</sup></a></li>
+		
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/技术/" title="技术">技术<sup>1</sup></a></li>
+		
+			<li><a href="/tags/随笔/" title="随笔">随笔<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li></ul>
+  </div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/技术/" style="font-size: 10px;">技术</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://taffy.me" target="_blank" title="taffy">Alimon's Blog</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Taffy Tian <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		<a href="http://weibo.com/1463824200" target="_blank" title="weibo"></a>
+		
+		
+		
+		<a href="https://github.com/taffy99" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016 
+		
+		<a href="http://yoursite.com" target="_blank" title="Taffy Tian">Taffy Tian</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+
+<!-- mathjax -->  
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+<script src="/js/mathjax.js"></script>
+
+<!-- totop -->  
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"Sunf&#39;s Blog"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+
+  </body>
+</html>
