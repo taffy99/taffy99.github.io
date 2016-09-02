@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-18T10:28:31.391Z</updated>
+  <updated>2016-09-01T10:23:25.936Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>面向过程和面向对象的编程概述</title>
+    <link href="http://yoursite.com/2016/09/01/%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E5%92%8C%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    <id>http://yoursite.com/2016/09/01/面向过程和面向对象/</id>
+    <published>2016-09-01T09:49:32.000Z</published>
+    <updated>2016-09-01T10:23:25.936Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;面向过程和面向对象的编程概述&quot;&gt;&lt;a href=&quot;#面向过程和面向对象的编程概述&quot; class=&quot;headerlink&quot; title=&quot;面向过程和面向对象的编程概述&quot;&gt;&lt;/a&gt;面向过程和面向对象的编程概述&lt;/h2&gt;&lt;h4 id=&quot;面向过程&quot;&gt;&lt;a href=&quot;#面向过程&quot; class=&quot;headerlink&quot; title=&quot;面向过程&quot;&gt;&lt;/a&gt;面向过程&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;面向过程的编程将程序分成了“数据“和”处理函数”两部分，程序以”处理函数”为核心，要执行什么操作，就将”数据”传给相应的”处理函数”，返回我们需要的结果。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;面向对象&quot;&gt;&lt;a href=&quot;#面向对象&quot; class=&quot;headerlink&quot; title=&quot;面向对象&quot;&gt;&lt;/a&gt;面向对象&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;面向对象的编程是描述一个个”物件”，客观生活中的物件，都可以通过面向对象思维映射到程序中，在程序中管”物件”叫做”对象”，对象由两部分组成：”属性”和”行为”，对应客观世界中物件的”状态”和”动作”。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;两者的区别&quot;&gt;&lt;a href=&quot;#两者的区别&quot; class=&quot;headerlink&quot; title=&quot;两者的区别&quot;&gt;&lt;/a&gt;两者的区别&lt;/h4&gt;&lt;p&gt;面向过程的思维就是描述一个个”动作”，数据和处理函数之间没有直接的关联，在执行操作的时候，不但要选择相应的处理函数，还要准备处理函数需要的数据；数据和处理函数都暴露在同一作用域内，没有私有和公有的概念，整个程序中所有的数据和处理函数都可以相互访问，好处是在开发的速度快，但由于整个程序耦合得非常紧，任何一个处理函数和数据都可能关联到其他地方，增加了后期修改和维护的难度。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/../images/op.png&quot; alt=&quot;面向过程耦合关系&quot;&gt;&lt;/p&gt;
+&lt;p&gt;面向对象的思维过程是定义了一个个对象，对象有自己的属性和行为，因为属性和行为都是从属于对象的，于是有了”对象内”和”对象外”的概念。在对象外部，属性和行为可以用对象的属性和对象的行为来调用，从而让程序有了按真实世界的思维方式进行描述的能力。在对象内部，对象的属性和行为通过this关键字（或者其他类似的关键字，例如有的语言用SELF作为这个关键字）关联起来，例如say这个行为在调用name的属性时，就可以使用this.name来调用自己对象的属性.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/../images/obj.png&quot; alt=&quot;面向对象耦合关系&quot;&gt; &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;–读书笔记 摘自《编写高质量代码：Web前端开发修炼之道》5.4&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;面向过程和面向对象的编程概述&quot;&gt;&lt;a href=&quot;#面向过程和面向对象的编程概述&quot; class=&quot;headerlink&quot; title=&quot;面向过程和面向对象的编程概述&quot;&gt;&lt;/a&gt;面向过程和面向对象的编程概述&lt;/h2&gt;&lt;h4 id=&quot;面向过程&quot;&gt;&lt;a href=&quot;#面
+    
+    </summary>
+    
+      <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="技术" scheme="http://yoursite.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>JS实现轮播图思路整理</title>

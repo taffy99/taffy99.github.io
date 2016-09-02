@@ -4,13 +4,16 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>开篇 | Sunf&#39;s Blog</title>
+    <title>面向过程和面向对象的编程概述 | Sunf&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Taffy Tian">
     
-    <meta name="description" content="在hexo发布的第一篇博客
-今天应该算是一个开始，开始决定在自己喜欢的领域做自己擅长的事情，人是不应该给自己的人生设限的，我们不应该因为对未知的恐惧而在自己尚有余力时候，呆在一个看似安稳的环境中停滞不前，世事本就无常，哪有什么安稳可言，与其被动的躲藏不如主动地迎上前，加油吧，努力吧，少年！">
+    <meta name="description" content="面向过程和面向对象的编程概述面向过程
+面向过程的编程将程序分成了“数据“和”处理函数”两部分，程序以”处理函数”为核心，要执行什么操作，就将”数据”传给相应的”处理函数”，返回我们需要的结果。
+
+面向对象
+面向对象的编程是描述一个个”物件”，客观生活中的物件，都可以通过面向对象思维映射到程序中，在程">
     
     
     
@@ -70,15 +73,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/08/13/开篇/" title="开篇" itemprop="url">开篇</a>
+      <a href="/2016/09/01/面向过程和面向对象/" title="面向过程和面向对象的编程概述" itemprop="url">面向过程和面向对象的编程概述</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="Taffy Tian">Taffy Tian</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-08-13T03:04:32.000Z" itemprop="datePublished">2016-08-13</time>
-    更新日期:<time datetime="2016-08-13T03:04:29.117Z" itemprop="dateModified">2016-08-13</time>
+    <time datetime="2016-09-01T09:49:32.000Z" itemprop="datePublished">2016-09-01</time>
+    更新日期:<time datetime="2016-09-01T10:23:25.936Z" itemprop="dateModified">2016-09-01</time>
     
   </p>
 </header>
@@ -87,31 +90,42 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#面向过程和面向对象的编程概述"><span class="toc-number">1.</span> <span class="toc-text">面向过程和面向对象的编程概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#面向过程"><span class="toc-number">1.0.1.</span> <span class="toc-text">面向过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#面向对象"><span class="toc-number">1.0.2.</span> <span class="toc-text">面向对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#两者的区别"><span class="toc-number">1.0.3.</span> <span class="toc-text">两者的区别</span></a></li></ol></li></ol></li></ol>
 		</div>
 		
-		<p><strong>在hexo发布的第一篇博客</strong></p>
-<p>今天应该算是一个开始，开始决定在自己喜欢的领域做自己擅长的事情，人是不应该给自己的人生设限的，我们不应该因为对未知的恐惧而在自己尚有余力时候，呆在一个看似安稳的环境中停滞不前，世事本就无常，哪有什么安稳可言，与其被动的躲藏不如主动地迎上前，加油吧，努力吧，少年！</p>
+		<h2 id="面向过程和面向对象的编程概述"><a href="#面向过程和面向对象的编程概述" class="headerlink" title="面向过程和面向对象的编程概述"></a>面向过程和面向对象的编程概述</h2><h4 id="面向过程"><a href="#面向过程" class="headerlink" title="面向过程"></a>面向过程</h4><blockquote>
+<p>面向过程的编程将程序分成了“数据“和”处理函数”两部分，程序以”处理函数”为核心，要执行什么操作，就将”数据”传给相应的”处理函数”，返回我们需要的结果。</p>
+</blockquote>
+<h4 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h4><blockquote>
+<p>面向对象的编程是描述一个个”物件”，客观生活中的物件，都可以通过面向对象思维映射到程序中，在程序中管”物件”叫做”对象”，对象由两部分组成：”属性”和”行为”，对应客观世界中物件的”状态”和”动作”。</p>
+</blockquote>
+<h4 id="两者的区别"><a href="#两者的区别" class="headerlink" title="两者的区别"></a>两者的区别</h4><p>面向过程的思维就是描述一个个”动作”，数据和处理函数之间没有直接的关联，在执行操作的时候，不但要选择相应的处理函数，还要准备处理函数需要的数据；数据和处理函数都暴露在同一作用域内，没有私有和公有的概念，整个程序中所有的数据和处理函数都可以相互访问，好处是在开发的速度快，但由于整个程序耦合得非常紧，任何一个处理函数和数据都可能关联到其他地方，增加了后期修改和维护的难度。</p>
+<p><img src="/../images/op.png" alt="面向过程耦合关系"></p>
+<p>面向对象的思维过程是定义了一个个对象，对象有自己的属性和行为，因为属性和行为都是从属于对象的，于是有了”对象内”和”对象外”的概念。在对象外部，属性和行为可以用对象的属性和对象的行为来调用，从而让程序有了按真实世界的思维方式进行描述的能力。在对象内部，对象的属性和行为通过this关键字（或者其他类似的关键字，例如有的语言用SELF作为这个关键字）关联起来，例如say这个行为在调用name的属性时，就可以使用this.name来调用自己对象的属性.</p>
+<p><img src="/../images/obj.png" alt="面向对象耦合关系"> </p>
+<blockquote>
+<p>–读书笔记 摘自《编写高质量代码：Web前端开发修炼之道》5.4</p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/随笔/">随笔</a>
+  <span></span> <a href="/tags/技术/">技术</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/随笔/">随笔</a>
+  <a class="article-category-link" href="/categories/技术/">技术</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2016/08/13/开篇/" data-title="开篇 | Sunf&#39;s Blog" data-tsina="1463824200" class="share clearfix">
+  <div data-url="http://yoursite.com/2016/09/01/面向过程和面向对象/" data-title="面向过程和面向对象的编程概述 | Sunf&#39;s Blog" data-tsina="1463824200" class="share clearfix">
   </div>
 
 </div>
@@ -120,14 +134,14 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/08/18/JS实现轮播图思路整理/" title="JS实现轮播图思路整理">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  JS实现轮播图思路整理</span>
+
+<div class="next">
+<a href="/2016/08/18/JS实现轮播图思路整理/"  title="JS实现轮播图思路整理">
+ <strong>NEXT:</strong><br/> 
+ <span>JS实现轮播图思路整理
+</span>
 </a>
 </div>
-
 
 </nav>
 
@@ -141,7 +155,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#面向过程和面向对象的编程概述"><span class="toc-number">1.</span> <span class="toc-text">面向过程和面向对象的编程概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#面向过程"><span class="toc-number">1.0.1.</span> <span class="toc-text">面向过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#面向对象"><span class="toc-number">1.0.2.</span> <span class="toc-text">面向对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#两者的区别"><span class="toc-number">1.0.3.</span> <span class="toc-text">两者的区别</span></a></li></ol></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
